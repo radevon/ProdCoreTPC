@@ -1,0 +1,62 @@
+﻿@model ProdCoreTPC.UserLogin
+
+@{
+    ViewData["Title"] = "Вход в приложение";
+}
+
+
+        <div id="loginCard" class="card-panel center-align z-depth-4">
+
+                <div class="row">
+                <div class="col m12">
+                    <h4 class="card-h4">Вход в программу</h4>
+                    <hr />
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col m12">
+                        <form asp-action="Login" method="post">
+
+                            <div class="row">
+                                <div class="input-field col m12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input asp-for="UserName"  />
+
+                                    <label asp-for="UserName"></label>
+                                </div>
+                                <br />
+                                <span asp-validation-for="UserName"></span>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="input-field col m12">
+                                    <i class="material-icons prefix">https</i>
+                                    <input asp-for="UserPassword" />
+
+                                    <label asp-for="UserPassword"></label>
+                                </div>
+                                <br />
+                                <span asp-validation-for="UserPassword"></span>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col m6">
+                                    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+                                </div>
+                                <div class="col m6"><input type="submit" value="Подтвердить" class="btn teal darken-3 right" /></div>
+
+                            </div>
+
+                            <div asp-validation-summary="ModelOnly"></div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
