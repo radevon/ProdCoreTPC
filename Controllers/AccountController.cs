@@ -28,22 +28,46 @@ namespace ProdCoreTPC.Controllers
 
 
         [HttpPost]
-        public IActionResult Login(UserLogin user)
+        public async Task<IActionResult> Login(UserLogin user)
         {
-            ModelState.AddModelError("", "Неверный логин или пароль");
+            
             if (!ModelState.IsValid)
                 return View(user);
 
-            // проверка пользователя
+          
+                // проверка пользователя
+                var _user = await _userManager. FindByNameAsync(user.UserName);
+                if(_user == null)
+                {
+                    ModelState.AddModelError("", "Не найден пользователь с таким именем!");
+                    return View(user);
+                }
+                var result = await _signInManager.PasswordSignInAsync(_user, user.UserPassword, false, false);
+                if (result.Succeeded)
+                {
+
+                }else
+                {
+                    ModelState.AddModelError("", "Неверный пароль!");
+                    return View(user);
+                }
+
+
+           
+
 
             return RedirectToAction("Index", "Start");
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
 
-        
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

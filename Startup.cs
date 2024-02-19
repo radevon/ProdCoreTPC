@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using ProdCoreTPC.Filters.Exceptions;
 using ProdCoreTPC.Identity;
 
 namespace ProdCoreTPC
@@ -45,9 +46,21 @@ namespace ProdCoreTPC
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<AuthContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = "ASP_CORE_AUTH";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.SlidingExpiration = true;
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
            
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options=>
+            {
+                options.Filters.Add(new ErrorHandlingFilter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,9 +70,9 @@ namespace ProdCoreTPC
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+            else // вывод пользователю сообщения об ошибке
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
@@ -76,6 +89,8 @@ namespace ProdCoreTPC
                 RequestPath = "/dist"
             });
 
+            app.UseAuthentication();    // подключение аутентификации
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -83,7 +98,9 @@ namespace ProdCoreTPC
                     template: "{controller=Start}/{action=Index}/{id?}");
             });
 
-            app.UseAuthentication();    // подключение аутентификации
+           
+
+            
             
 
             app.UseStatusCodePages();

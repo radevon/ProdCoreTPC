@@ -9,7 +9,7 @@
     </head>
     <body>
         <header>
-            @await Html.PartialAsync("_Navigation")
+            @{await Html.RenderPartialAsync("_Navigation");}
         </header>
        
 
@@ -19,7 +19,7 @@
         </div>
          
         <footer>
-                <p>© @DateTime.Now.Year.ToString() - TPC STORE</p>
+                <div>© @DateTime.Now.Year.ToString() - TPC STORE</div>
         </footer>
         <script src="~/libs/materialize-css/dist/js/materialize.min.js"></script>
         <script src="~/dist/js/base.js"></script>

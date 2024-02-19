@@ -4,7 +4,15 @@
         <a href="#" class="brand-logo">Logo</a>
         <ul id="navigation" class="right">
             <li><a asp-controller="Start" asp-action="Index">Главная</a></li>
-            <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-controller="Account" asp-action="Logout">Выход</a></li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
+            }
+
         </ul>
     </div>
 </nav>
