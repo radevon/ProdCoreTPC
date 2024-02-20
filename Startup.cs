@@ -72,7 +72,7 @@ namespace ProdCoreTPC
             }
             else // вывод пользователю сообщения об ошибке
             {
-                //app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error/Error");
             }
 
             app.UseStaticFiles();

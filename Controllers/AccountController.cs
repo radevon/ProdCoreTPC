@@ -51,9 +51,7 @@ namespace ProdCoreTPC.Controllers
                     ModelState.AddModelError("", "Неверный пароль!");
                     return View(user);
                 }
-
-
-           
+        
 
 
             return RedirectToAction("Index", "Start");

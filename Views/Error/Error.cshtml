@@ -1,0 +1,42 @@
+﻿@model ProblemDetails;
+@{
+    ViewData["Title"] = "Сведения об ошибках в приложении";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col m12"></div>
+        <h1 class="center-align">СТАТУС ОТВЕТА: <span class="red-text text-lighten-1">@Model.Status?.ToString()</span></h1>
+    </div>
+
+    <div class="row">
+        <div class="col m12">
+            <div class="card-panel">
+                <h3 class="red-text text-lighten-3 center-align">@Model.Title</h3>
+            </div>
+            </div>
+        </div>
+    
+    <div class="row">
+        <div class="col m12">
+            <div class="card-panel">
+                <span style="font-weight:bold">Подробные сведения:</span>
+                <blockquote>
+                    <p class="grey-text text-darken-2">
+                        @Model.Detail
+                    </p>
+                 <blockquote>
+            </div>
+            
+</div>
+    </div>
+    <div class="row">
+        <div class="col m12">
+            <div class="right-align">
+                Попробуйте повторить действие после обновления страницы, либо обратитесь в поддержку <b>тел. 55-97, 55-76</b>
+            </div>
+        </div>
+    </div>
+   
+    
+</div>

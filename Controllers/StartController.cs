@@ -9,10 +9,10 @@ namespace ProdCoreTPC.Controllers
 {
     public class StartController : Controller
     {
-        [Authorize(Roles ="hgh")]
+        
         public IActionResult Index()
         {
-            //throw new Exception();
+            throw new Exception();
             return View();
         }
     }
