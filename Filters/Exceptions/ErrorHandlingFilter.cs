@@ -15,10 +15,8 @@ namespace ProdCoreTPC.Filters.Exceptions
        
         public override void OnException(ExceptionContext context)
         {
+            // логировать не надо, логируется автоматом через ILogger
            
-            var exception = context.Exception;
-            // add logging exception here!!!
-            Debug.WriteLine("ошибка в проекте:"+exception.Message);
             context.ExceptionHandled = false; //not stop exception 
         }
     }
