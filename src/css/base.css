@@ -35,6 +35,9 @@ footer {
     background-color: var(--back-main-color);
 }
 
+.container-fluid{
+    width:100%;
+}
 
 #ContentMain {
     display: flex;
@@ -52,6 +55,9 @@ footer {
     max-height:550px;
 }
 
+h1,h2,h3,h4,h5,h6{
+    color:var(--back-main-color);
+}
 
 .card-h4{
     margin-bottom:15px;
@@ -70,4 +76,8 @@ input[type="text"].input-validation-error, input[type="password"].input-validati
 
 .validation-summary-errors {
     color: #d54848;
+}
+
+.minFont{
+    font-size:12px;
 }

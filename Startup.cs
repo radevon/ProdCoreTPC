@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using ProdCoreTPC.Code.Interfaces;
+using ProdCoreTPC.Code.Repositories;
 using ProdCoreTPC.Filters.Exceptions;
 using ProdCoreTPC.Identity;
 
@@ -57,10 +59,14 @@ namespace ProdCoreTPC
             });
            
 
+
             services.AddMvc(options=>
             {
                 options.Filters.Add(new ErrorHandlingFilter());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient(typeof(IRepository<ApplicationUser, string>), typeof(AppUserRepository));
+            services.AddTransient(typeof(IRepository<IdentityRole, string>), typeof(AppRoleRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

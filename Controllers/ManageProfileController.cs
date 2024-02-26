@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ProdCoreTPC.Code.Interfaces;
+using ProdCoreTPC.Code.Repositories;
+
+namespace ProdCoreTPC.Controllers
+{
+    [Authorize(Roles = "administrator")]
+    public class ManageProfileController : Controller
+    {
+
+        private IRepository<ApplicationUser, String> userRepo;
+        private IRepository<IdentityRole, String> roleRepo;
+
+        public ManageProfileController(IRepository<ApplicationUser, String> _userRepo, IRepository<IdentityRole, String> _roleRepo)
+        {
+            this.userRepo = _userRepo;
+            this.roleRepo = _roleRepo;
+        }
+
+        public IActionResult UserList()
+        {
+            
+            var users = userRepo.GetAll().OrderBy(x=>x.UserName);
+            return View(users);
+        }
+
+        public IActionResult RoleList()
+        {
+            var roles = roleRepo.GetAll().OrderBy(x => x.Name);
+            return View(roles);
+        }
+    }
+}

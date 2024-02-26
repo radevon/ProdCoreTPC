@@ -20,23 +20,24 @@ namespace ProdCoreTPC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl="")
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(UserLogin user)
+        public async Task<IActionResult> Login(UserLogin user, string ReturnUrl="")
         {
-            
+            ViewBag.ReturnUrl = ReturnUrl;
             if (!ModelState.IsValid)
                 return View(user);
 
           
                 // проверка пользователя
-                var _user = await _userManager. FindByNameAsync(user.UserName);
+                var _user = await _userManager.FindByNameAsync(user.UserName);
                 if(_user == null)
                 {
                     ModelState.AddModelError("", "Не найден пользователь с таким именем!");
@@ -45,8 +46,13 @@ namespace ProdCoreTPC.Controllers
                 var result = await _signInManager.PasswordSignInAsync(_user, user.UserPassword, false, false);
                 if (result.Succeeded)
                 {
+                    if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                        return Redirect(ReturnUrl);
+                    else
+                        return RedirectToAction("Index", "Start");
 
-                }else
+            }
+            else
                 {
                     ModelState.AddModelError("", "Неверный пароль!");
                     return View(user);
@@ -54,7 +60,7 @@ namespace ProdCoreTPC.Controllers
         
 
 
-            return RedirectToAction("Index", "Start");
+            
         }
 
         public async Task<IActionResult> Logout()

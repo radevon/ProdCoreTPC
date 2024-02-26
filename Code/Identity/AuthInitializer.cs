@@ -20,20 +20,20 @@ namespace ProdCoreTPC.Identity
         {
             try
             {
-                string adminUser = _configuration.GetValue<string>("AdministratorAccount:Login");
+                string adminUserName = _configuration.GetValue<string>("AdministratorAccount:Login");
                 string adminPassword = _configuration.GetValue<string>("AdministratorAccount:Password"); ;
                 if (await _rMan.FindByNameAsync("administrator") == null)
                 {
                     await _rMan.CreateAsync(new IdentityRole("administrator"));
                 }
 
-                if (await _uMan.FindByNameAsync(adminUser) == null)
+                if (await _uMan.FindByNameAsync(adminUserName) == null)
                 {
-                    ApplicationUser admin = new ApplicationUser { Email = "", UserName = adminUser };
-                    IdentityResult result = await _uMan.CreateAsync(admin, adminPassword);
+                    ApplicationUser adminUser = new ApplicationUser { Email = "", UserName = adminUserName };
+                    IdentityResult result = await _uMan.CreateAsync(adminUser, adminPassword);
                     if (result.Succeeded)
                     {
-                        await _uMan.AddToRoleAsync(admin, "administrator");
+                        await _uMan.AddToRoleAsync(adminUser, "administrator");
                     }
                 }
             }catch (Exception ex)

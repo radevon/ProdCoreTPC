@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "Список ролей приложения";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col m12">
+            <h4>Доступные роли</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m12">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th width="350">Id</th>
+                        <th width="180">Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var role in Model)
+                    {
+                    <td>@role.Id</td>
+                    <td>@role.Name</td>
+                    
+                    <td>
+                        <a class="btn-floating btn-small orange lighten-1 pulse" title="Редактирование роли"><i class="material-icons">edit</i></a>
+                        <a class="btn-floating btn-small red lighten-1 pulse" title="Удаление роли"><i class="material-icons">clear</i></a>
+                    </td>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
