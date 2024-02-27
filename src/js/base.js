@@ -9,13 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.Dropdown.init(elems, {});
 });
 
-import { createMaterializeModal } from './modal.js'
+import { openModalRequest } from './modal.js'
+
+window.openModalRequest = openModalRequest;
 
 
-document.querySelector('nav').onclick = function () {
-    let instance = M.Modal.init(createMaterializeModal('Мой заголовок', 'Содержимое', 'footer'), {});
-    instance.open();
-}
 
 
 

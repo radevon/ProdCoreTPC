@@ -35,5 +35,15 @@ namespace ProdCoreTPC.Controllers
             var roles = roleRepo.GetAll().OrderBy(x => x.Name);
             return View(roles);
         }
+
+        [HttpGet]
+        public IActionResult EditRole(string id)
+        {
+            IdentityRole role = roleRepo.Get(id);
+            if (role == null)
+                role = new IdentityRole() { Id = "0", Name = "" };
+            return PartialView("_EditRole",new { Id = role.Id, Name = role.Name });
+        }
+
     }
 }

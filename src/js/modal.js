@@ -1,6 +1,20 @@
 ﻿import M from 'materialize-css'
 
-let createMaterializeModal = (title = 'Модальное окно', bodyContent = '', footerContent = '', id = 'MainModal') => {
+
+/*
+ *  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <div>Content</div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+
+ * */
+let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 'MainModal') => {
 
     let old = document.querySelector('#' + id);
     if (old !== null)
@@ -34,18 +48,19 @@ let createMaterializeModal = (title = 'Модальное окно', bodyContent
     return modal;
 }
 
-export { createMaterializeModal }
 
-/*
- *  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <div>Content</div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
+let openModalRequest = async (title, url, method = 'GET') => {
+    let response = await fetch(url, { method: method });
+    let body = '';
+    if (response.ok) {
+        body = await response.text();
+    } else {
+        body = 'Ошибка при выполнении запроса. Статус код: ' + response.status;
+    }
 
+    M.Modal.init(createMaterializeModal(title, body, 'footer'), { onCloseEnd: (el) => { el.remove(); } })
+           .open();
+}
 
- * */
+export { openModalRequest }
+

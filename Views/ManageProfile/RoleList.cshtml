@@ -27,7 +27,7 @@
                     <td>@role.Name</td>
                     
                     <td>
-                        <a class="btn-floating btn-small orange lighten-1 pulse" title="Редактирование роли"><i class="material-icons">edit</i></a>
+                        <a class="btn-floating btn-small orange lighten-1 pulse" href="#" title="Редактирование роли" onclick="openModalRequest('Редактирование роли', '@Url.Action("EditRole","ManageProfile",new { id=role.Id})')"><i class="material-icons">edit</i></a>
                         <a class="btn-floating btn-small red lighten-1 pulse" title="Удаление роли"><i class="material-icons">clear</i></a>
                     </td>
                     }
