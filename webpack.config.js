@@ -18,6 +18,7 @@ module.exports = (env = {}, argv = {}) => {
             path: path.resolve(__dirname, "dist"),
             filename: 'js/[name].js'
         },
+        devtool: isProd ? 'source-map' : false,
 
         plugins: [
             new CleanWebpackPlugin(),

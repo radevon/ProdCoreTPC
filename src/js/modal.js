@@ -1,5 +1,5 @@
 ﻿import M from 'materialize-css'
-
+import { getHttpRequest } from './requests.js'
 
 /*
  *  <div id="modal1" class="modal">
@@ -14,11 +14,13 @@
 
 
  * */
+
+// Формирование разметки модального окна, появление динамическое
 let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 'MainModal') => {
 
     let old = document.querySelector('#' + id);
     if (old !== null)
-        document.body.removeChild(old);
+        old.remove();
 
     let modal = document.createElement('div');
     modal.id = id;
@@ -35,6 +37,14 @@ let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 
     m_footer.className = 'modal-footer';
     m_footer.innerHTML = footerContent;
 
+    let closeBtn = document.createElement('button');
+    closeBtn.classList.add('modal-close', 'btn-flat');
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '0';
+    closeBtn.style.right = '0';
+    closeBtn.innerText = 'X';
+    
+
     let b_content = document.createElement('div');
     b_content.innerHTML = bodyContent;
 
@@ -42,24 +52,23 @@ let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 
     m_content.appendChild(b_content);
 
     modal.appendChild(m_content);
-    modal.appendChild(m_footer);
+    if (footerContent !== '')
+        modal.appendChild(m_footer);
 
+    modal.appendChild(closeBtn);
     document.body.appendChild(modal);
     return modal;
 }
 
 
-let openModalRequest = async (title, url, method = 'GET') => {
-    let response = await fetch(url, { method: method });
-    let body = '';
-    if (response.ok) {
-        body = await response.text();
-    } else {
-        body = 'Ошибка при выполнении запроса. Статус код: ' + response.status;
-    }
-
-    M.Modal.init(createMaterializeModal(title, body, 'footer'), { onCloseEnd: (el) => { el.remove(); } })
-           .open();
+let openModalRequest = async (title, url, footer = '') => {
+    let body = await getHttpRequest(url);
+    M.Modal.init(
+        createMaterializeModal(title, body, footer),
+        {
+            onCloseEnd: (el) => { el.remove(); }
+        }
+    ).open();
 }
 
 export { openModalRequest }

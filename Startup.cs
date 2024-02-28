@@ -56,6 +56,23 @@ namespace ProdCoreTPC
                 options.SlidingExpiration = true;
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
+
+                // добавляю обработчик автоматич. переадресации для неавторизованных запросов (отдельная обработка запросов из javascript) - не нужен редирект на страницу логина
+                options.Events.OnRedirectToLogin += ctx =>
+                {
+                    if(ctx.Request.Headers.ContainsKey("X-Requested-With")&&ctx.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                        ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
+
+                // добавляю обработчик автоматич. переадресации для  запросов без необходимых прав (отдельная обработка запросов из javascript) - также не нужен редирект на страницу логина
+                options.Events.OnRedirectToAccessDenied += ctx =>
+                {
+                    if (ctx.Request.Headers.ContainsKey("X-Requested-With") && ctx.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                        ctx.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    return Task.CompletedTask;
+                };
+
             });
            
 
@@ -103,11 +120,7 @@ namespace ProdCoreTPC
                     name: "default",
                     template: "{controller=Start}/{action=Index}/{id?}");
             });
-
-           
-
-            
-            
+                              
 
             app.UseStatusCodePages();
         }
