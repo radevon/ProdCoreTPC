@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProdCoreTPC.Identity
+namespace ProdCoreTPC.Code.Identity
 {
     public class AuthContext : IdentityDbContext<ApplicationUser>
     {

@@ -42,7 +42,18 @@ module.exports = (env = {}, argv = {}) => {
                         'css-loader'
 
                     ]
-                }/*,
+                },
+                {
+                     test: /\.js$/,
+                     exclude: /node_modules/,
+                     use: {
+                          loader: "babel-loader",
+                          options: {
+                            presets: ['@babel/preset-env']
+                          }
+                     }
+                }
+                /*,
                 {
                     test: /\.(png|woff|woff2|eot|ttf|svg)$/,
                     loader: 'file-loader',

@@ -8,7 +8,7 @@ namespace ProdCoreTPC.Code.Logging
 {
     public class JsonFileLoggerProvider : ILoggerProvider
     {
-        string path;
+        readonly string path;
         public JsonFileLoggerProvider(string path)
         {
             this.path = path;

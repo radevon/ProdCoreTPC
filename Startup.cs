@@ -15,7 +15,7 @@ using Microsoft.Extensions.FileProviders;
 using ProdCoreTPC.Code.Interfaces;
 using ProdCoreTPC.Code.Repositories;
 using ProdCoreTPC.Filters.Exceptions;
-using ProdCoreTPC.Identity;
+using ProdCoreTPC.Code.Identity;
 
 namespace ProdCoreTPC
 {

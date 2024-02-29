@@ -15,7 +15,10 @@ import { getHttpRequest } from './requests.js'
 
  * */
 
-// Формирование разметки модального окна, появление динамическое
+/*
+ * Формирование разметки модального окна, 
+ * появление динамическое
+ * */
 let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 'MainModal') => {
 
     let old = document.querySelector('#' + id);
@@ -61,7 +64,10 @@ let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 
 }
 
 
-let openModalRequest = async (title, url, footer = '') => {
+/*
+ * Открытие модального окна с результатом http запроса
+ * */
+let openModalGetRequest = async (title, url, footer = '') => {
     let body = await getHttpRequest(url);
     M.Modal.init(
         createMaterializeModal(title, body, footer),
@@ -71,5 +77,5 @@ let openModalRequest = async (title, url, footer = '') => {
     ).open();
 }
 
-export { openModalRequest }
+export { openModalGetRequest }
 

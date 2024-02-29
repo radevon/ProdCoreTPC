@@ -43,7 +43,7 @@ namespace ProdCoreTPC.Code.Logging
 
                     File.AppendAllText(_filePath.TrimEnd('/') + "/" + DateTime.Now.ToString("yyyy_MM_dd") + "__log.json", jsonLine + Environment.NewLine + Environment.NewLine);
                 
-                }catch(Exception ex)
+                }catch(Exception)
                 {
 
                 }

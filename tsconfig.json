@@ -6,7 +6,10 @@
     "sourceMap": true,
     "target": "es5"
   },
+  
   "exclude": [
+    "./out.d.ts",
     "node_modules"
-  ]
+  ],
+  "include": ["src"]
 }

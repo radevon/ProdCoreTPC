@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProdCoreTPC.Code.Identity;
 using ProdCoreTPC.Code.Interfaces;
 using ProdCoreTPC.Code.Repositories;
+using ProdCoreTPC.Models;
 
 namespace ProdCoreTPC.Controllers
 {
@@ -42,7 +44,7 @@ namespace ProdCoreTPC.Controllers
             IdentityRole role = roleRepo.Get(id);
             if (role == null)
                 role = new IdentityRole() { Id = "0", Name = "" };
-            return PartialView("_EditRole",new { Id = role.Id, Name = role.Name });
+            return PartialView("_EditRole",new RoleModel { Id = role.Id, Name = role.Name });
         }
 
     }

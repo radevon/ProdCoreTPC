@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ProdCoreTPC
+namespace ProdCoreTPC.Code.Identity
 {
     public class ApplicationUser:IdentityUser
     {

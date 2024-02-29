@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProdCoreTPC.Code.Identity;
 using ProdCoreTPC.Code.Interfaces;
 using System;
 using System.Collections.Generic;

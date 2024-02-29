@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProdCoreTPC.Code.Logging;
-using ProdCoreTPC.Identity;
+using ProdCoreTPC.Code.Identity;
 
 namespace ProdCoreTPC
 {

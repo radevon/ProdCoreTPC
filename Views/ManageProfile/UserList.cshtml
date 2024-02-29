@@ -31,15 +31,17 @@
                 <tbody>
                     @foreach (var user in Model)
                     {
-                    <td>@user.Id</td>
-                    <td>@user.UserName</td>
-                    <td>@user.Email</td>
-                    <td><label><input type="checkbox" checked="@user.EmailConfirmed" disabled="disabled" /><span></span></label></td>
-                    <td>@user.PasswordHash</td>
-                    <td>@user.PhoneNumber</td>
-                    <td><label><input type="checkbox" checked="@user.LockoutEnabled" disabled="disabled" /><span></span></label></td>
-                    <td>@(user.LockoutEnd.HasValue?user.LockoutEnd.Value.ToString():"")</td>
-                    <td></td>
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td><label><input type="checkbox" checked="@user.EmailConfirmed" disabled="disabled" /><span></span></label></td>
+                        <td>@user.PasswordHash</td>
+                        <td>@user.PhoneNumber</td>
+                        <td><label><input type="checkbox" checked="@user.LockoutEnabled" disabled="disabled" /><span></span></label></td>
+                        <td>@(user.LockoutEnd.HasValue?user.LockoutEnd.Value.ToString():"")</td>
+                        <td></td>
+                    </tr>
                 }
                     </tbody>
                 </table>

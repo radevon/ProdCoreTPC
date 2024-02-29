@@ -1,18 +1,32 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model RoleModel
 
 
+<form asp-action="EditRole" method="post" onsubmit="return false">
+    <input asp-for="Id" />
+    <div class="row">
+        <div class="input-field col m6 s12">
+            <input placeholder="Название роли" asp-for="Name" />
 
-    <form asp-action="EditRole" method="post">
-        <div class="row">
-            <div class="input-field col m6">
-                <input placeholder="Название роли" />
-
-                <label ></label>
-            </div>
-            <br />
-            <span ></span>
+            <label class="active" asp-for="Name"></label>
         </div>
-    </form>
+        <div class="col m6 s12">
+            <span asp-validation-for="Name"></span>
+        </div>
+        <br />
+        
+    </div>
+    <div class="row">
+        <div class="col m12">
+            <span asp-validation-summary="ModelOnly"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m12">
+            <input type="submit" class="btn teal darken-3 right" value="Сохранить"/>
+        </div>
+    </div>
+</form>
 
