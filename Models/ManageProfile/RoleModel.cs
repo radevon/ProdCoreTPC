@@ -14,7 +14,7 @@ namespace ProdCoreTPC.Models
         public string Id { get; set; }
 
         [Display(Name="Название")]
-        [Required(ErrorMessage ="Не заполнено поле \"Наименование\"")]
+        [Required(ErrorMessage ="Не заполнено поле \"Название\"")]
         public string Name { get; set; }
     }
 }

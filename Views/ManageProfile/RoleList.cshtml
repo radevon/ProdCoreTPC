@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
 @{
     ViewData["Title"] = "Список ролей приложения";
 }
@@ -7,6 +7,11 @@
     <div class="row">
         <div class="col m12">
             <h4>Доступные роли</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m12 right-align">
+            <a class="btn teal darken-3" href="#" title="Добавить новое значение" onclick="openModalGetRequest('Добавление новой роли', '@Url.Action("EditRole","ManageProfile",new { id="0"})')"><i class="material-icons left">add</i>Добавить</a>
         </div>
     </div>
     <div class="row">
@@ -29,7 +34,7 @@
 
                         <td>
                             <a class="btn-floating btn-small orange lighten-1 pulse" href="#" title="Редактирование роли" onclick="openModalGetRequest('Редактирование роли', '@Url.Action("EditRole","ManageProfile",new { id=role.Id})')"><i class="material-icons">edit</i></a>
-                            <a class="btn-floating btn-small red lighten-1 pulse" title="Удаление роли"><i class="material-icons">clear</i></a>
+                                <a class="btn-floating btn-small red lighten-1 pulse" href="#" title="Удаление роли" onclick="openModalGetRequest('Удаление роли', '@Url.Action("DeleteRole","ManageProfile",new { roleId=role.Id})')"><i class="material-icons">clear</i></a>
                         </td>
                     </tr>
                     }
@@ -37,4 +42,6 @@
                 </table>
             </div>
         </div>
+
+    
     </div>

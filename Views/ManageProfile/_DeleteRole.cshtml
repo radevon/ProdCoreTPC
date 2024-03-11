@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+
+<form id="DeleteRoleForm" asp-action="DeleteRoleConfirm" method="post" onsubmit="submitFormModal(event,'Удаление роли')">
+    <input type="hidden" name="roleId" value="@Model.Id" />
+    <div class="row">
+        <div class="col m12">
+            <h5 class="red-text text-lighten-3">Вы пытаетесь удалить роль: <span style="font-size:1.1em; font-weight:bold; color:#000">@Model.Name</span> ?</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m12">
+            <input type="submit" class="btn teal darken-3 right" value="Удалить" />
+        </div>
+    </div>
+</form>

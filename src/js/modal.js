@@ -1,5 +1,5 @@
 ﻿import M from 'materialize-css'
-import { getHttpRequest } from './requests.js'
+import { getHttpRequest, postFormDataRequest } from './requests.js'
 
 /*
  *  <div id="modal1" class="modal">
@@ -15,22 +15,25 @@ import { getHttpRequest } from './requests.js'
 
  * */
 
+const MODAL_ID = 'MainModal';
 /*
  * Формирование разметки модального окна, 
  * появление динамическое
  * */
-let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 'MainModal') => {
+let createMaterializeModal = (title, bodyContent = '', footerContent = '') => {
 
-    let old = document.querySelector('#' + id);
-    if (old !== null)
-        old.remove();
+    let oldModal = document.querySelector('#' + MODAL_ID);
+    if (oldModal !== null) {
+        let modal_to_close = M.Modal.getInstance(oldModal);
+        modal_to_close.close();
+    }        
 
     let modal = document.createElement('div');
-    modal.id = id;
+    modal.id = MODAL_ID;
     modal.className = 'modal';
 
     let m_content = document.createElement('div');
-    m_content.className = 'modal-content';
+    m_content.className = 'modal-content center-align';
 
 
     let m_title = document.createElement('h4');
@@ -60,12 +63,29 @@ let createMaterializeModal = (title, bodyContent = '', footerContent = '', id = 
 
     modal.appendChild(closeBtn);
     document.body.appendChild(modal);
+
+    executeScriptsInElement(b_content);
+
     return modal;
+}
+
+// Функция для выполнения скриптов в элементе
+function executeScriptsInElement(element) {
+    const scripts = element.querySelectorAll('script');
+    scripts.forEach((script) => {
+        const newScript = document.createElement('script');
+        if (script.src) {
+            newScript.src = script.src;
+        } else {
+            newScript.innerHTML = script.innerHTML;
+        }
+        element.appendChild(newScript);
+    });
 }
 
 
 /*
- * Открытие модального окна с результатом http запроса
+ * Открытие модального окна с результатом GET http запроса
  * */
 let openModalGetRequest = async (title, url, footer = '') => {
     let body = await getHttpRequest(url);
@@ -76,6 +96,18 @@ let openModalGetRequest = async (title, url, footer = '') => {
         }
     ).open();
 }
+/* 
+    Открытие модального окна с результатом POST http запроса
+* */
+let openModalPostRequest = async (title, url, formData, footer = '') => {
+    let body = await postFormDataRequest(url, formData);
+    M.Modal.init(
+        createMaterializeModal(title, body, footer),
+        {
+            onCloseEnd: (el) => { el.remove(); }
+        }
+    ).open();
+}
 
-export { openModalGetRequest }
+export { openModalGetRequest, openModalPostRequest }
 

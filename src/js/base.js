@@ -4,7 +4,9 @@ import '../css/materialize-icon-font.css'
 
 import M from 'materialize-css'
 
-import { openModalGetRequest } from './modal.js'
+import { openModalGetRequest, openModalPostRequest } from './modal.js'
+
+import { submitFormModal } from './common.js'
 
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.dropdown-trigger');
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 window.openModalGetRequest = openModalGetRequest;
+window.submitFormModal = submitFormModal;
 
 
 

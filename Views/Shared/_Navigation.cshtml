@@ -6,15 +6,15 @@
             <li><a asp-controller="Start" asp-action="Index">Главная</a></li>
             @if (User.Identity.IsAuthenticated && User.IsInRole("administrator"))
             {
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdownAdminMenu">Управление<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdownAdminMenu">Администратору<i class="material-icons right">arrow_drop_down</i></a></li>
             }
             @if (User.Identity.IsAuthenticated)
             {
-                <li><a asp-controller="Account" asp-action="Logout">Выход</a></li>
+                <li class="red darken-4"><a asp-controller="Account" asp-action="Logout"><i class="material-icons right">exit_to_app</i>Выход</a></li>
             }
             else
             {
-                <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
+                <li class="teal darken-4"><a asp-controller="Account" asp-action="Login"><i class="material-icons left">person</i>Вход</a></li>
             }
 
         </ul>
@@ -22,10 +22,9 @@
 
         <!-- Dropdown Structure -->
         <ul id="dropdownAdminMenu" class="dropdown-content">
-            <li><a asp-controller="ManageProfile" asp-action="UserList">Пользователи</a></li>
-            <li><a asp-controller="ManageProfile" asp-action="RoleList">Роли</a></li>
-            <li class="divider"></li>
-            <li><a href="#!">three</a></li>
+            <li><a asp-controller="ManageProfile" asp-action="UserList"><i class="material-icons left">person</i>Пользователи</a></li>
+            <li><a asp-controller="ManageProfile" asp-action="RoleList"><i class="material-icons left">group</i>Роли</a></li>
+            
         </ul>
     </div>
 </nav>

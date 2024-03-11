@@ -49,7 +49,7 @@ let getJsonRequest = async(url) => {
 /*
  * Метод для отправки http запроса POST с параметрами в теле запроса с типом сериализации application/json и получением ответа в виде text/html
  * */
-let postHttpRequest = async (url,parameters) => {
+let postJsonRequest = async (url,parameters) => {
     let options = {
         method: 'POST',
         headers: {
@@ -70,4 +70,24 @@ let postHttpRequest = async (url,parameters) => {
     }
 }
 
-export { getHttpRequest, getJsonRequest, postHttpRequest }
+let postFormDataRequest = async (url, formData) => {
+    let options = {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    };
+    try {
+        let response = await fetch(url, options);
+        if (response.ok)
+            return await response.text();
+        else
+            return 'Ошибка в приложении на сервере. Статус код ответа сервера: ' + response.status;
+    } catch (ex) {
+        console.error(ex);
+        return 'Ошибка при выполнении http POST запроса на сервер. Подробные сведения отображены в консоли.';
+    }
+}
+
+export { getHttpRequest, getJsonRequest, postJsonRequest, postFormDataRequest }
