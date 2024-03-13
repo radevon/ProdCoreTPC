@@ -8,22 +8,14 @@
     }
   },
   "profiles": {
-    "IIS Express": {
+    "IIS Express:Development": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ProdCoreTPC": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:5000"
-    },
-    "Prod": {
+    "IIS Express:Production": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {

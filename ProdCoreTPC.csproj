@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <UserSecretsId>4c82172a-a4ee-4256-8843-ed4c3e4904e6</UserSecretsId>
+    <Configurations>Debug;Release;ProdCoreTPC_production</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,12 +13,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Shared\_Layout.cshtml" />
+    <Content Remove="babel.config.json" />
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="logs\2024_02_26__log.json" />
+    <Content Remove="logs\2024_02_27__log.json" />
+    <Content Remove="logs\2024_03_13__log.json" />
+    <Content Remove="package.json" />
+    <Content Remove="Properties\launchSettings.json" />
+    <Content Remove="tsconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="src\css\base.css" />
-    <Content Include="src\js\base.js" />
+    <None Remove="dist\0c35d18bf06992036b69.woff2" />
+    <None Remove="dist\css\base.css" />
+    <None Remove="dist\js\base.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="dist\0c35d18bf06992036b69.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\base.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\base.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="src\js\base.min.js" />
     <Content Include="src\js\base.min.js.map" />
   </ItemGroup>
@@ -27,11 +49,17 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\" />
-    <Folder Include="dist\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="babel.config.json" />
+    <None Include="bundleconfig.json" />
+    <None Include="logs\2024_02_26__log.json" />
+    <None Include="logs\2024_02_27__log.json" />
+    <None Include="logs\2024_03_13__log.json" />
+    <None Include="package.json" />
+    <None Include="Properties\launchSettings.json" />
+    <None Include="tsconfig.json" />
   </ItemGroup>
 
   <ItemGroup>

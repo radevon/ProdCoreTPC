@@ -1,6 +1,9 @@
 ﻿
-import '../css/base.css'
+import '../../node_modules/materialize-css/dist/css/materialize.css'
+
 import '../css/materialize-icon-font.css'
+
+import '../css/base.css'
 
 import M from 'materialize-css'
 

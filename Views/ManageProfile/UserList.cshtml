@@ -45,7 +45,7 @@
                         <td>@user.PhoneNumber</td>
                         <td><label><input type="checkbox" checked="@user.LockoutEnabled" disabled="disabled" /><span></span></label></td>
                         <td>@(user.LockoutEnd.HasValue?user.LockoutEnd.Value.ToString():"")</td>
-                        <td></td>
+                        <td>@await Component.InvokeAsync("UserRoles", new { userId=user.Id})</td>
                     </tr>
                 }
                     </tbody>

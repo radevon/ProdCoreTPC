@@ -100,11 +100,7 @@ namespace ProdCoreTPC
 
             app.UseStaticFiles();
 
-             app.UseStaticFiles(new StaticFileOptions()
-            {
-                RequestPath = PathString.FromUriComponent("/libs"),
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "node_modules"))
-            });
+            
 
             app.UseStaticFiles(new StaticFileOptions
             {

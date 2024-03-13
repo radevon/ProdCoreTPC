@@ -25,19 +25,22 @@ namespace ProdCoreTPC.Controllers
         //private IRepository<IdentityRole, String> roleRepo;
         private RoleManager<IdentityRole> roleManager;
 
-        
+        private UserManager<ApplicationUser> userManager;
 
-        public ManageProfileController(IRepository<ApplicationUser, String> _userRepo, IRepository<IdentityRole, String> _roleRepo, RoleManager<IdentityRole> _roleManager)
+
+
+        public ManageProfileController(IRepository<ApplicationUser, String> _userRepo, IRepository<IdentityRole, String> _roleRepo, RoleManager<IdentityRole> _roleManager, UserManager<ApplicationUser> userManager)
         {
             this.userRepo = _userRepo;
             //this.roleRepo = _roleRepo;
             this.roleManager = _roleManager;
+            this.userManager = userManager;
         }
 
         public IActionResult UserList()
         {
             
-            var users = userRepo.GetAll().OrderBy(x=>x.UserName);
+            var users = userManager.Users.OrderBy(x=>x.UserName).ToList();
             return View(users);
         }
 
@@ -48,6 +51,8 @@ namespace ProdCoreTPC.Controllers
             return View(roles);
         }
 
+
+       
         [HttpGet]
         public async Task<IActionResult> EditRole(string id)
         {
@@ -169,7 +174,10 @@ namespace ProdCoreTPC.Controllers
             {
                 return PartialView("_AddProfile", newProfile);
             }
+            
             return Content("Orkkk");
         }
+
+        
     }
 }
