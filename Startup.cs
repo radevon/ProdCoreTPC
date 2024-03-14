@@ -46,6 +46,8 @@ namespace ProdCoreTPC
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.User.RequireUniqueEmail = false;
                 options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<AuthContext>();
 
             services.ConfigureApplicationCookie(options =>

@@ -168,14 +168,33 @@ namespace ProdCoreTPC.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProfile(ProfileModel newProfile)
+        public async Task<IActionResult> AddProfile(ProfileModel newProfile)
         {
             if (!ModelState.IsValid)
             {
                 return PartialView("_AddProfile", newProfile);
             }
-            
-            return Content("Orkkk");
+            ApplicationUser user = await userManager.FindByNameAsync(newProfile.UserName);
+            if (user != null)
+            {
+                ModelState.AddModelError("","Пользователь с таким именем (логином) уже существует. Придумайте другой логин!");
+                return PartialView("_AddProfile", newProfile);
+            }
+            IdentityResult result = await userManager.CreateAsync(new ApplicationUser() { UserName = newProfile.UserName, Email = newProfile.Email, PhoneNumber = newProfile.PhoneNumber }, newProfile.Password);
+
+            if (result.Succeeded)
+            {
+                return Content($"Пользователь '{newProfile.UserName}' успешно создан! Страница будет перезагружена" + ScriptConstants.RELOAD_SCRIPT);
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return PartialView("_AddProfile", newProfile);
+            }
+
         }
 
         
