@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ApplicationUser
+
+<form id="DeleteProfileForm" asp-action="DeleteProfileConfirm" method="post" onsubmit="submitFormModal(event,'Удаление аккаунта')">
+    <input type="hidden" name="userId" value="@Model.Id" />
+    <div class="row">
+        <div class="col m12">
+            <h5 class="red-text text-lighten-3">Вы собираетесь удалить аккаунт пользователя: <span style="font-size:1.1em; font-weight:bold; color:#000">@Model.UserName</span> ?</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m12">
+            <input type="submit" class="btn teal darken-3 right" value="Удалить" />
+        </div>
+    </div>
+</form>

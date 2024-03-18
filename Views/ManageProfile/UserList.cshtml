@@ -30,6 +30,7 @@
                         <th>LockoutEnabled</th>
                         <th>LockoutEnd</th>
                         <th>Roles</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -46,6 +47,20 @@
                         <td><label><input type="checkbox" checked="@user.LockoutEnabled" disabled="disabled" /><span></span></label></td>
                         <td>@(user.LockoutEnd.HasValue?user.LockoutEnd.Value.ToString():"")</td>
                         <td>@await Component.InvokeAsync("UserRoles", new { userId=user.Id})</td>
+                        <td>
+                            
+
+                            <a class='dropdown-trigger btn-floating btn-small orange lighten-1 pulse' href='#' data-target='dropdown-@user.UserName'><i class="material-icons">edit</i></a>
+
+                            <!-- Dropdown Structure -->
+                            <ul id='dropdown-@user.UserName' class='dropdown-content'>
+                                <li title="Изменение пароля"><a href="#!"  onclick="openModalGetRequest('Изменение пароля аккаунта', '@Url.Action("ChangePass","ManageProfile",new { userId=user.Id})')">Пароль</a></li>
+                                <li title="Управление ролями"><a href="#!"  onclick="openModalGetRequest('Управление ролями пользователя', '@Url.Action("ChangeProfileRoles","ManageProfile",new { userId=user.Id})')">Роли</a></li>
+                            </ul>
+
+
+                            <a class="btn-floating btn-small red lighten-1 pulse" href="#" title="Удаление профиля" onclick="openModalGetRequest('Удаление аккаунта', '@Url.Action("Deleteprofile","ManageProfile",new { userId=user.Id})')"><i class="material-icons">clear</i></a>
+                        </td>
                     </tr>
                 }
                     </tbody>
