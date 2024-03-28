@@ -33,11 +33,12 @@ let createMaterializeModal = (title, bodyContent = '', footerContent = '') => {
     modal.className = 'modal';
 
     let m_content = document.createElement('div');
-    m_content.className = 'modal-content center-align';
+    m_content.className = 'modal-content';
 
 
     let m_title = document.createElement('h4');
     m_title.innerText = title;
+    m_title.className = 'center-align';
 
     let m_footer = document.createElement('div');
     m_footer.className = 'modal-footer';

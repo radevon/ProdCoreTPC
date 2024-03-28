@@ -48,7 +48,8 @@ namespace ProdCoreTPC
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
                 options.Password.RequireNonAlphanumeric = false;
-            }).AddEntityFrameworkStores<AuthContext>();
+            }).AddEntityFrameworkStores<AuthContext>()
+              .AddDefaultTokenProviders(); // для генерации токена при сбросе пароля
 
             services.ConfigureApplicationCookie(options =>
             {

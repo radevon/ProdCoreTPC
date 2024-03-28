@@ -245,6 +245,11 @@ namespace ProdCoreTPC.Controllers
             }
         }
 
+        /// <summary>
+        /// Редактирование списка ролей у пользователя с userId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> ChangeProfileRoles(string userId)
         {
             ApplicationUser user = await userManager.FindByIdAsync(userId);
@@ -254,8 +259,121 @@ namespace ProdCoreTPC.Controllers
             }
 
             List<string> allRoles = roleManager.Roles.Select(x => x.Name).OrderBy(x => x).ToList();
+            List<string> userRoles = (List<string>) await userManager.GetRolesAsync(user);
+            Dictionary<string, bool> haveRoles = new Dictionary<string, bool>();
+            foreach(string role in allRoles)
+            {
+                haveRoles.Add(role, userRoles.Contains(role));
+            }
 
-            return Content("Роли");
+            UserRolesModel model = new UserRolesModel()
+            {
+                UserId = user.Id,
+                UserName=user.UserName,
+                Roles = haveRoles
+            };            
+
+            return PartialView("_UserRoles",model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeRolesSave(UserRolesModel userRoleModel)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(userRoleModel.UserId);
+            if (user == null)
+            {
+                return Content($"Пользователь {userRoleModel.UserName} не найден");
+            }
+            List<IdentityResult> operationResults = new List<IdentityResult>();
+            foreach ( var (role,isHave) in userRoleModel.Roles)
+            {
+                bool isInRole = await userManager.IsInRoleAsync(user, role);
+                
+                //Пользователь имеет роль но не должен ее иметь - удаляю
+                if (isInRole&&!isHave)
+                {
+                    // проверка чтобы нельзя было удалить собственную роль администратора
+                    if (user.UserName == configuration.GetValue<string>("AdministratorAccount:Login") && role == "administrator")
+                        continue;
+                    operationResults.Add(await userManager.RemoveFromRoleAsync(user, role));
+                }else if(!isInRole&&isHave) // пользователь не имеет роли, но должен - добавляю
+                {
+                    operationResults.Add(await userManager.AddToRoleAsync(user, role));
+                }  
+            }
+            if (operationResults.Count == 0)
+            {
+                return Content("Изменений не зафиксировано!");
+            }
+
+            if (operationResults.TrueForAll(x => x.Succeeded))
+            {
+                return Content("Переназначение ролей прошло успешно! Страница будет перезагружена" + ScriptConstants.RELOAD_SCRIPT);
+            }else
+            {
+                foreach(var res in operationResults.Where(x => !x.Succeeded))
+                {
+                    foreach (var error in res.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+                return PartialView("_UserRoles", userRoleModel);
+            }
+            
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePass(string userId)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return Content($"Пользователь не найден");
+            }
+
+            string resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+
+            PasswordResetModel resetModel = new PasswordResetModel()
+            {
+                UserId = userId,
+                UserName = user.UserName,
+                NewPassword = String.Empty,
+                PasswordResetToken = resetToken
+            };
+           
+            return PartialView("_ChangePassword",resetModel);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePass(PasswordResetModel model)
+        {
+            if (!ModelState.IsValid)
+                return PartialView("_ChangePassword", model);
+
+            ApplicationUser user = await userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return Content($"Пользователь не найден");
+            }
+
+            IdentityResult result = await userManager.ResetPasswordAsync(user, model.PasswordResetToken, model.NewPassword);
+
+
+            if (result.Succeeded)
+            {
+                return Content($"Пароль у пользователя '{model.UserName}' успешно изменен! Страница будет перезагружена" + ScriptConstants.RELOAD_SCRIPT);
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return PartialView("_ChangePassword", model);
+            }
         }
 
     }

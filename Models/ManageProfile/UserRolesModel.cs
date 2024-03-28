@@ -9,6 +9,7 @@ namespace ProdCoreTPC.Models
     public class UserRolesModel
     {
         public string UserId { get; set; }
+        public string UserName { get; set; }
 
         public Dictionary<string,bool> Roles { get; set; }
     }

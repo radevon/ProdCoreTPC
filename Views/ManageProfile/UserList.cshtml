@@ -54,7 +54,7 @@
 
                             <!-- Dropdown Structure -->
                             <ul id='dropdown-@user.UserName' class='dropdown-content'>
-                                <li title="Изменение пароля"><a href="#!"  onclick="openModalGetRequest('Изменение пароля аккаунта', '@Url.Action("ChangePass","ManageProfile",new { userId=user.Id})')">Пароль</a></li>
+                                <li title="Изменение пароля"><a href="#!"  onclick="openModalGetRequest('Изменение пароля пользователя', '@Url.Action("ChangePass","ManageProfile",new { userId=user.Id})')">Пароль</a></li>
                                 <li title="Управление ролями"><a href="#!"  onclick="openModalGetRequest('Управление ролями пользователя', '@Url.Action("ChangeProfileRoles","ManageProfile",new { userId=user.Id})')">Роли</a></li>
                             </ul>
 
